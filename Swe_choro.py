@@ -7,14 +7,30 @@ Created on Wed Jun  8 22:04:09 2022
 """
 
 import json
-import numpy as np
 import pandas as pd
 import plotly.express as px
+import plotly.io as pio
+pio.renderers.default='chromium'
 
-kommuner = json.load(open('swe_geo.json', 'r'))
 
-kommun_pop = pd.read_csv('pop.csv',
+lan = json.load(open('swe_geo.json', 'r'))
+
+kommun_pop = pd.read_csv('lan_1749-2020.csv',
                          sep = ',',
                          thousands=' ')
 
-kommun_pop['2021 antal'] = kommun_pop['2021 antal'].str.replace("[^\d.,e+-]","").astype(int)
+#kommun_pop = kommun_pop.rename(columns = {'Kommun':'landskap'})
+#kommuner['features'][0]['properties']['landskap']
+
+for i in lan['features']:
+    i['Län'] = i['properties']['landskap']
+
+
+
+plt = px.choropleth(kommun_pop, 
+                    locations= 'Län',
+                    geojson= lan,
+                    color = '2020')
+
+plt.show()
+
