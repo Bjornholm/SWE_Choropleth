@@ -20,17 +20,20 @@ kommun_pop = pd.read_csv('lan_1749-2020.csv',
                          thousands=' ')
 
 #kommun_pop = kommun_pop.rename(columns = {'Kommun':'landskap'})
-#kommuner['features'][0]['properties']['landskap']
-
-for i in lan['features']:
-    i['Län'] = i['properties']['landskap']
-
-
+#lan['features'][0]['properties']['landskap']
+# d = 1
+# for i in lan['features']:
+#     print(i['properties']['landskap'] + " {}".format(d))
+#     d = d+ 1
 
 plt = px.choropleth(kommun_pop, 
-                    locations= 'Län',
                     geojson= lan,
-                    color = '2020')
+                    locations= 'Län',
+                    featureidkey='properties.landskap',
+                    color = '2020',
+                    hover_name = 'Län',
+                    hover_data = ['2020'],
+                    title = 'Sverige population per län')
 
+plt.update_geos(fitbounds="locations", visible=False)
 plt.show()
-
