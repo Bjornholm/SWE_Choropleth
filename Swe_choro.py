@@ -20,7 +20,7 @@ kommun_pop = pd.read_csv('lan_1749-2020.csv',
                          thousands=' ')
 
 #kommun_pop = kommun_pop.rename(columns = {'Kommun':'landskap'})
-#lan['features'][0]['properties']['landskap']
+#lan['features'][0]['properties']['name']
 # d = 1
 # for i in lan['features']:
 #     print(i['properties']['landskap'] + " {}".format(d))
@@ -29,7 +29,7 @@ kommun_pop = pd.read_csv('lan_1749-2020.csv',
 plt = px.choropleth(kommun_pop, 
                     geojson= lan,
                     locations= 'Län',
-                    featureidkey='properties.landskap',
+                    featureidkey='properties.name',
                     color = '2020',
                     hover_name = 'Län',
                     hover_data = ['2020'],
